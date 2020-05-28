@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CJRDZPlDiLExLCa7SvqDTGip9k+9h0BgFtcCmELCPqF4AOvo6TYMJUyGcDL8JgQdhHx+X1vDy9oUyes5khib0A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mouri\\source\\repos\\d3-delaunay-cs\\d3-delaunay-cs\\d3-delaunay-cs.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mouri\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
