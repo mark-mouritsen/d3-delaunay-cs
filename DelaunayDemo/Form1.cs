@@ -37,8 +37,8 @@ namespace DelaunayDemo
         private void EngineInit()
         {
             //InitNoise(seed);
-            points = UniformPoissonDiskSampler.SampleRectangle(new Vector2(0, 0), new Vector2(CANVAS_WIDTH, CANVAS_HEIGHT), 25);
-            var pointsString = string.Join(",", points.Select(point => $"[{point.X},{point.Y}]"));
+            UniformPoissonDiskSampler.Random = new Random(1);
+            points = UniformPoissonDiskSampler.SampleRectangle(new Vector2(0, 0), new Vector2(CANVAS_WIDTH, CANVAS_HEIGHT), 5);
 
             delaunay = Delaunay.from(points.Select(point => new double[] { point.X, point.Y }).ToArray());
             voronoi = delaunay.voronoi(new Bounds { x0 = 0.5, y0 = 0.5, x1 = CANVAS_WIDTH - 0.5, y1 = CANVAS_HEIGHT - 0.5 });
