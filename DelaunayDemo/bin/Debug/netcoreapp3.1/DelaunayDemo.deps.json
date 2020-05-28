@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "DelaunayDemo/1.0.0": {
+        "dependencies": {
+          "d3-delaunay-cs": "1.0.0"
+        },
+        "runtime": {
+          "DelaunayDemo.dll": {}
+        }
+      },
+      "d3-delaunay-cs/1.0.0": {
+        "runtime": {
+          "d3-delaunay-cs.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DelaunayDemo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "d3-delaunay-cs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
