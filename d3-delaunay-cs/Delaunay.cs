@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using static d3_delaunay_cs.Delaunator;
@@ -11,7 +10,7 @@ namespace d3_delaunay_cs
     {
         const double tau = 2 * Math.PI;
 
-        Delaunator delaunator;
+        public Delaunator delaunator;
 
         public double[] points;
         public uint[] triangles;
@@ -61,7 +60,6 @@ namespace d3_delaunay_cs
             return array.ToArray();
         }
 
-
         public static IEnumerable<double> flatIterable(
             double[][] points,
             Func<double[], int, double[][], double> fx,
@@ -78,6 +76,7 @@ namespace d3_delaunay_cs
         public Delaunay(double[] points)
         {
             var delaunator = new Delaunator(points);
+            this.delaunator = delaunator;
             var halfedges = delaunator.halfedges;
             var hull = delaunator.hull;
             var triangles = delaunator.triangles;
