@@ -121,7 +121,8 @@ namespace d3_delaunay_cs
             var e = e0;
             do
             {
-                yield return e < 0 ? 0 : triangles[e];
+                if (e < 0) yield break;
+                yield return triangles[e];
                 e = e % 3 == 2 ? e - 2 : e + 1;
                 if (triangles[e] != i) yield break; // bad triangulation
                 e = halfedges[e];
@@ -132,13 +133,13 @@ namespace d3_delaunay_cs
         public int find(double x, double y, int i = 0)
         {
             int c;
-            c = this._step(i, x, y);
-            while (c >= 0 && c != i)
-            {
-                i = c;
-                c = this._step(i, x, y);
-            }
-            //while ((c = this._step(i, x, y)) >= 0 && c != i) i = c;
+            //c = this._step(i, x, y);
+            //while (c >= 0 && c != i)
+            //{
+            //    i = c;
+            //    c = this._step(i, x, y);
+            //}
+            while ((c = this._step(i, x, y)) >= 0 && c != i) i = c;
             return c;
         }
 
