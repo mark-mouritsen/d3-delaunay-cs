@@ -1,9 +1,0 @@
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\bin\Debug\netcoreapp3.1\d3-delaunay-cs.deps.json
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\bin\Debug\netcoreapp3.1\d3-delaunay-cs.dll
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\bin\Debug\netcoreapp3.1\d3-delaunay-cs.pdb
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.csprojAssemblyReference.cache
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.AssemblyInfoInputs.cache
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.AssemblyInfo.cs
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.csproj.CoreCompileInputs.cache
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.dll
-C:\Users\mouri\source\repos\d3-delaunay-cs\d3-delaunay-cs\obj\Debug\netcoreapp3.1\d3-delaunay-cs.pdb
