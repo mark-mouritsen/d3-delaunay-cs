@@ -1,5 +1,6 @@
 # d3-delaunay-cs
 https://github.com/d3/d3-delaunay ported to c#.
+Using Poisson Disc sampling from http://theinstructionlimit.com/fast-uniform-poisson-disk-sampling-in-c.
 
 No optimizations or changes yet. See the demo for usage.
 
