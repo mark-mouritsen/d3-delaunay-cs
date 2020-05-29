@@ -1,14 +1,10 @@
-﻿using d3_delaunay_cs;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using static d3_delaunay_cs.Voronoi;
 
 namespace DelaunayDemo
 {
@@ -22,11 +18,10 @@ namespace DelaunayDemo
         private Graphics drawHandle;
         private Thread renderThread;
 
-        List<Vector2> points;
-        Delaunay delaunay;
-        Voronoi voronoi;
+        DelaunayVoronoi d1;
 
         int hoverIndex = -1;
+        bool recalculating = false;
 
         public Form1()
         {
@@ -37,11 +32,7 @@ namespace DelaunayDemo
         private void EngineInit()
         {
             //InitNoise(seed);
-            UniformPoissonDiskSampler.Random = new Random(1);
-            points = UniformPoissonDiskSampler.SampleRectangle(new Vector2(0, 0), new Vector2(CANVAS_WIDTH, CANVAS_HEIGHT), 5);
-
-            delaunay = Delaunay.from(points.Select(point => new double[] { point.X, point.Y }).ToArray());
-            voronoi = delaunay.voronoi(new Bounds { x0 = 0.5, y0 = 0.5, x1 = CANVAS_WIDTH - 0.5, y1 = CANVAS_HEIGHT - 0.5 });
+            d1 = new DelaunayVoronoi(CANVAS_WIDTH, CANVAS_HEIGHT, (int)seedInput.Value, (int)radiusInput.Value);
 
             renderThread = new Thread(new ThreadStart(render));
             renderThread.Start();
@@ -55,9 +46,9 @@ namespace DelaunayDemo
             Bitmap frame = new Bitmap(CANVAS_WIDTH, CANVAS_HEIGHT);
             Graphics frameGraphics = Graphics.FromImage(frame);
 
-            var cellPolygons = voronoi.cellPolygons().ToList();
             while (true)
             {
+                if (recalculating) { continue;  }
                 if (drawHandle == null) { continue; }
                 //debug
                 //object obj = form.Invoke(new Action(() => { form.PointToClient(Cursor.Position); }));
@@ -66,29 +57,24 @@ namespace DelaunayDemo
                 // base
                 frameGraphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-                foreach (var polygon in cellPolygons)
+                foreach (var polygon in d1.CellPolygons)
                 {
                     frameGraphics.DrawPolygon(new Pen(Color.Blue), polygon.Select(point => new Point { X = (int)point[0], Y = (int)point[1] }).ToArray());
                 }
 
-                foreach (var point in points)
+                foreach (var point in d1.Points)
                 {
                     frameGraphics.FillRectangle(new SolidBrush(Color.Blue), point.X, point.Y, 4, 4);
                 }
 
-                foreach (var polygonIndex in delaunay.neighbors(80))
-                {
-                    frameGraphics.FillPolygon(new SolidBrush(Color.Blue), cellPolygons[(int)polygonIndex].Select(point => new Point { X = (int)point[0], Y = (int)point[1] }).ToArray());
-                }
-
                 if (hoverIndex >= 0)
                 {
-                    var polygon = cellPolygons[hoverIndex];
+                    var polygon = d1.CellPolygons[hoverIndex];
                     if (polygon.Any(point => double.IsNaN(point[0]) || double.IsNaN(point[1]))) break;
                     frameGraphics.FillPolygon(new SolidBrush(Color.Green), polygon.Select(point => new Point { X = (int)point[0], Y = (int)point[1] }).ToArray());
-                    foreach (var polygonIndex in delaunay.neighbors(hoverIndex))
+                    foreach (var polygonIndex in d1.Delaunay.neighbors(hoverIndex))
                     {
-                        frameGraphics.FillPolygon(new SolidBrush(Color.Blue), cellPolygons[(int)polygonIndex].Select(point => new Point { X = (int)point[0], Y = (int)point[1] }).ToArray());
+                        frameGraphics.FillPolygon(new SolidBrush(Color.Blue), d1.CellPolygons[(int)polygonIndex].Select(point => new Point { X = (int)point[0], Y = (int)point[1] }).ToArray());
                     }
                 }
 
@@ -139,7 +125,19 @@ namespace DelaunayDemo
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            hoverIndex = delaunay.find(e.X, e.Y);
+            hoverIndex = d1.Delaunay.find(e.X, e.Y);
+        }
+
+        private void seedInput_ValueChanged(object sender, EventArgs e)
+        {
+            hoverIndex = -1;
+            d1 = new DelaunayVoronoi(CANVAS_WIDTH, CANVAS_HEIGHT, (int)seedInput.Value, (int)radiusInput.Value);
+        }
+
+        private void radiusInput_ValueChanged(object sender, EventArgs e)
+        {
+            hoverIndex = -1;
+            d1 = new DelaunayVoronoi(CANVAS_WIDTH, CANVAS_HEIGHT, (int)seedInput.Value, (int)radiusInput.Value);
         }
     }
 }
